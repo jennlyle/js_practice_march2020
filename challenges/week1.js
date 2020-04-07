@@ -46,7 +46,7 @@ function reverseAllWords(words) {
   /* I can't quite remember how to refactor For Loops effectively, but the below 
     runs... and lookit, I re-used a prior function =D */
   let newArray = [];
-  for (i = 0; i < words.length; i++){
+  for (let i = 0; i < words.length; i++){
     newArray[i] = reverseWord(words[i]);
   }
   return newArray;
@@ -56,7 +56,7 @@ function countLinuxUsers(users) {
   if (users === undefined) throw new Error("users is required");
   // Add your code here!
   let count = 0;
-  for (i = 0; i < users.length; i++){
+  for (let i = 0; i < users.length; i++){
     if (users[i]["type"] === "Linux"){
       count++;
     }
@@ -68,7 +68,7 @@ function getMeanScore(scores) {
   if (scores === undefined) throw new Error("scores is required");
   // Add your code here!
   let myTotal = 0;
-  for (i = 0; i < scores.length; i++){
+  for (let i = 0; i < scores.length; i++){
       myTotal += scores[i];
   }
   return Math.round((myTotal / scores.length) * 100) / 100
