@@ -67,7 +67,7 @@ describe("getIntegers", () => {
   });
 });
 
-describe("getCities", () => {
+describe.only("getCities", () => {
   test("returns an array of the cities of each user", () => {
     const users = [
       {
