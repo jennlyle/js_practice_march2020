@@ -38,12 +38,21 @@ function getIntegers(nums) {
 
 function getCities(users) {
   if (!users) throw new Error("users is required");
-  // Your code here
+  let myArray = [];
+  users.forEach(function (user, index) {
+    myArray.push(user.data.city.displayName);
+  });
+  return myArray;
 }
 
 function getSquareRoots(nums) {
   if (!nums) throw new Error("nums is required");
-  // Your code here
+  let myArray = [];
+  nums.forEach(function(num, index) {
+    num = Math.round(Math.sqrt(num) * 100) / 100;
+    myArray.push(num);
+  });
+  return myArray;
 }
 
 function findSentencesContaining(sentences, str) {
