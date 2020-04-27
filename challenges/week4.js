@@ -58,12 +58,27 @@ function getSquareRoots(nums) {
 function findSentencesContaining(sentences, str) {
   if (!sentences) throw new Error("sentences is required");
   if (!str) throw new Error("str is required");
-  // Your code here
+  let myArray = [];
+    sentences.forEach(function(sentence, index){
+    let mySentence = sentence.toLowerCase();
+    mySentence.includes(str) ? myArray.push(sentence) : 0;
+  });
+  return myArray;
 }
 
 function getLongestSides(triangles) {
   if (!triangles) throw new Error("triangles is required");
-  // Your code here
+  let myArray = [];
+  triangles.forEach(function (triangle, index){
+    let myNum = 0;
+    triangle.forEach(function(side, index2){
+      if (side > myNum){
+        myNum = side;
+      }      
+    });
+    myArray.push(myNum);
+  });
+  return myArray;
 }
 
 module.exports = {
