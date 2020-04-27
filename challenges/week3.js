@@ -1,10 +1,13 @@
 function getSquares(nums) {
   if (nums === undefined) throw new Error("nums is required");
-  let mySquare = [];
-  for (let i = 0; i < Object.values(nums).length; i++){
-    mySquare[i] = Object.values(nums)[i] * Object.values(nums)[i];
-  }
-  return mySquare;
+  /* One way to write this */
+  // let mySquare = [];
+  // for (let i = 0; i < Object.values(nums).length; i++){
+  //   mySquare[i] = Object.values(nums)[i] * Object.values(nums)[i];
+  // }
+  // return mySquare;
+  /* Another way to write this */
+  return nums.map(x => x * x);
 }
 
 function camelCaseWords(words) {
