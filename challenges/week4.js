@@ -1,7 +1,7 @@
 function findSmallNums(nums) {
   if (!nums) throw new Error("nums is required");
   let myArray = [];
-  nums.forEach(function(num, index) {
+  nums.forEach(function(num) {
     num < 1 ? myArray.push(num) : 0;
   });
   return myArray;
@@ -11,7 +11,7 @@ function findNamesBeginningWith(names, char) {
   if (!names) throw new Error("names is required");
   if (!char) throw new Error("char is required");
   let myArray = []
-  names.forEach(function(name, index){
+  names.forEach(function(name){
     name.charAt(0) === char ? myArray.push(name) : 0;
   });
   return myArray;
@@ -20,7 +20,7 @@ function findNamesBeginningWith(names, char) {
 function findVerbs(words) {
   if (!words) throw new Error("words is required");
   let myArray = [];
-  words.forEach(function (word, index) {
+  words.forEach(function (word) {
     word.includes('to ') ? myArray.push(word) : 0;
 
   });
@@ -30,7 +30,7 @@ function findVerbs(words) {
 function getIntegers(nums) {
   if (!nums) throw new Error("nums is required");
   let myArray = [];
-  nums.forEach(function(num, index){
+  nums.forEach(function(num){
     Number.isInteger(num) ? myArray.push(num) : 0;
   });
   return myArray;
@@ -39,7 +39,7 @@ function getIntegers(nums) {
 function getCities(users) {
   if (!users) throw new Error("users is required");
   let myArray = [];
-  users.forEach(function (user, index) {
+  users.forEach(function (user) {
     myArray.push(user.data.city.displayName);
   });
   return myArray;
@@ -48,7 +48,7 @@ function getCities(users) {
 function getSquareRoots(nums) {
   if (!nums) throw new Error("nums is required");
   let myArray = [];
-  nums.forEach(function(num, index) {
+  nums.forEach(function(num) {
     num = Math.round(Math.sqrt(num) * 100) / 100;
     myArray.push(num);
   });
@@ -59,7 +59,7 @@ function findSentencesContaining(sentences, str) {
   if (!sentences) throw new Error("sentences is required");
   if (!str) throw new Error("str is required");
   let myArray = [];
-    sentences.forEach(function(sentence, index){
+    sentences.forEach(function(sentence){
     let mySentence = sentence.toLowerCase();
     mySentence.includes(str) ? myArray.push(sentence) : 0;
   });
@@ -69,9 +69,9 @@ function findSentencesContaining(sentences, str) {
 function getLongestSides(triangles) {
   if (!triangles) throw new Error("triangles is required");
   let myArray = [];
-  triangles.forEach(function (triangle, index){
+  triangles.forEach(function (triangle){
     let myNum = 0;
-    triangle.forEach(function(side, index2){
+    triangle.forEach(function(side){
       if (side > myNum){
         myNum = side;
       }      
