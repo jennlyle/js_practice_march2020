@@ -23,7 +23,6 @@ function camelCaseWords(words) {
   //   }
   // }
   // return myNewWord;
-
   /*Another way to write it */
   let myNewWord = "";
   words.forEach(function(word, index) {
@@ -43,12 +42,15 @@ function getTotalSubjects(people) {
   //   }
   // }
   // return count;
-
   /* Another way to write it */
+  // let count = 0;
+  // people.forEach(function (person){
+  //   count += person.subjects.length;
+  // });
+  // return count;
+  /* Yet another way to write it */
   let count = 0;
-  people.forEach(function (person){
-    count += person.subjects.length;
-  });
+  people.forEach(person => count += person.subjects.length);
   return count;
 }
 
@@ -70,9 +72,7 @@ function checkIngredients(menu, ingredient) {
   // else {
   //   return false;
   // }
-
   /* Another way to write it */
-
   let result = false;
   menu.forEach(function (meal) {
     if (meal.ingredients.indexOf(ingredient) === 0) {
@@ -98,7 +98,6 @@ function duplicateNumbers(arr1, arr2) {
   // }
   // let uniq = [...new Set(myArrayOfNums.sort())];
   // return uniq;
-
  /* Another way to write it */
   let myArrayOfNums = [];
   arr1.forEach(function(arr1Num) {
@@ -107,7 +106,6 @@ function duplicateNumbers(arr1, arr2) {
     });
   });
   return [...new Set(myArrayOfNums.sort())];
- 
 }
 
 module.exports = {
