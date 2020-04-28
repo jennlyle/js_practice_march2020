@@ -36,9 +36,7 @@ function getCities(users) {
 function getSquareRoots(nums) {
   if (!nums) throw new Error("nums is required");
   let myArray = [];
-  nums.forEach(function(num) {
-    myArray.push(Math.round(Math.sqrt(num) * 100) / 100);
-  });
+  nums.forEach(num => myArray.push(Math.round(Math.sqrt(num) * 100) / 100));
   return myArray;
 }
 
