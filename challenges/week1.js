@@ -33,19 +33,6 @@ function reverseWord(word) {
 
 function reverseAllWords(words) {
   if (words === undefined) throw new Error("words is required");
-  /* One way of Writing it */
-  // let newArray = [];
-  // for (let i = 0; i < words.length; i++){
-  //   newArray[i] = reverseWord(words[i]);
-  // }
-  // return newArray;
-  /* Another way of Writing it */
-  // let newArray = [];
-  // words.forEach(function(word){
-  //   newArray.push(reverseWord(word));
-  // });
-  // return newArray;
-  /* One more way of Writing it */
   let newArray = [];
   words.forEach(word => newArray.push(reverseWord(word)));
   return newArray;
@@ -53,53 +40,13 @@ function reverseAllWords(words) {
 
 function countLinuxUsers(users) {
   if (users === undefined) throw new Error("users is required");
-/* One way to write this: */
-  // let count = 0;
-  // for (let i = 0; i < users.length; i++){
-  //   if (users[i]["type"] === "Linux"){
-  //     count++;
-  //   }
-  // }
-  // return count;
-/* Another way to write it */
-  // let count = 0;
-  //   users.forEach(function(user) {
-  //   if (user.type === "Linux"){
-  //     count++;
-  //   }
-  // });
-  // return count;
-/* Another wa to write it */
-  // let count = 0;
-  // users.forEach(function(user) {
-  //   if (user.type.includes("Linux")) {
-  //     count++;
-  //   }
-  // })
-  // return count;
-/* One more way to write it */
   let count = 0;
-  users.forEach(user => {
-    user.type.includes("Linux") ? count++ : 0;
-  })
+  users.forEach(user => user.type.includes("Linux") ? count++ : 0);
   return count; 
 }
 
 function getMeanScore(scores) {
   if (scores === undefined) throw new Error("scores is required");
-  /*One way to write it */
-  // let myTotal = 0;
-  // for (let i = 0; i < scores.length; i++){
-  //     myTotal += scores[i];
-  // }
-  // return Math.round((myTotal / scores.length) * 100) / 100
-  /* Another way to write it */
-  // let myTotal = 0;
-  // scores.forEach(function (score){
-  //   myTotal += score;
-  // });
-  // return Math.round((myTotal/scores.length) * 100) / 100;
-  /*Yet another way to write it*/
   let myTotal = 0;
   scores.forEach(score => myTotal += score );
   return Math.round((myTotal/scores.length) * 100) / 100;
