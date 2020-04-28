@@ -22,10 +22,14 @@ function countSheep(arr) {
   // }
   // return count;
   /*Another way to write this */
+  // let count = 0;
+  // arr.forEach(function(animal) {
+  //   animal === "sheep" ? count++ : 0;
+  // });
+  // return count;
+  /*Yet another way to write this */
   let count = 0;
-  arr.forEach(function(animal) {
-    animal === "sheep" ? count++ : 0;
-  });
+  arr.forEach(animal => animal === "sheep" ? count++ : 0);
   return count;
 }
 
