@@ -85,18 +85,29 @@ function checkIngredients(menu, ingredient) {
 function duplicateNumbers(arr1, arr2) {
   if (arr1 === undefined) throw new Error("arr1 is required");
   if (arr2 === undefined) throw new Error("arr2 is required");
+  /*One way to write it */
+  // let myArrayOfNums = [];
+  // let count = 0;
+  // for (let i = 0; i < Object.values(arr1).length; i++) {
+  //   for (let j = 0; j < Object.values(arr2).length; j++){
+  //     if (Object.values(arr1)[i] === Object.values(arr2)[j]){
+  //       myArrayOfNums[count] = Object.values(arr1)[i];
+  //       count++;
+  //     }
+  //   }
+  // }
+  // let uniq = [...new Set(myArrayOfNums.sort())];
+  // return uniq;
+
+ /* Another way to write it */
   let myArrayOfNums = [];
-  let count = 0;
-  for (let i = 0; i < Object.values(arr1).length; i++) {
-    for (let j = 0; j < Object.values(arr2).length; j++){
-      if (Object.values(arr1)[i] === Object.values(arr2)[j]){
-        myArrayOfNums[count] = Object.values(arr1)[i];
-        count++;
-      }
-    }
-  }
-  let uniq = [...new Set(myArrayOfNums.sort())];
-  return uniq;
+  arr1.forEach(function(arr1Num) {
+    arr2.forEach(function(arr2Num) {
+      arr1Num === arr2Num ? myArrayOfNums.push(arr2Num) : 0;
+    });
+  });
+  return [...new Set(myArrayOfNums.sort())];
+ 
 }
 
 module.exports = {
