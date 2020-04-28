@@ -53,7 +53,6 @@ function reverseAllWords(words) {
 
 function countLinuxUsers(users) {
   if (users === undefined) throw new Error("users is required");
-
 /* One way to write this: */
   // let count = 0;
   // for (let i = 0; i < users.length; i++){
@@ -62,7 +61,6 @@ function countLinuxUsers(users) {
   //   }
   // }
   // return count;
-
 /* Another way to write it */
   // let count = 0;
   //   users.forEach(function(user) {
@@ -71,7 +69,6 @@ function countLinuxUsers(users) {
   //   }
   // });
   // return count;
-
 /* Another wa to write it */
   // let count = 0;
   // users.forEach(function(user) {
@@ -80,7 +77,6 @@ function countLinuxUsers(users) {
   //   }
   // })
   // return count;
-
 /* One more way to write it */
   let count = 0;
   users.forEach(user => {
@@ -98,10 +94,14 @@ function getMeanScore(scores) {
   // }
   // return Math.round((myTotal / scores.length) * 100) / 100
   /* Another way to write it */
+  // let myTotal = 0;
+  // scores.forEach(function (score){
+  //   myTotal += score;
+  // });
+  // return Math.round((myTotal/scores.length) * 100) / 100;
+  /*Yet another way to write it*/
   let myTotal = 0;
-  scores.forEach(function (score){
-    myTotal += score;
-  });
+  scores.forEach(score => myTotal += score );
   return Math.round((myTotal/scores.length) * 100) / 100;
 }
 
