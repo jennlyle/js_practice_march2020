@@ -6,6 +6,13 @@
  */
 const sumMultiples = arr => {
   if (arr === undefined) throw new Error("arr is required");
+  let sum = 0;
+  function multOf3Or5(value){
+    return ((value / 3) === (Math.floor(value / 3))) || 
+    ((value / 5) === (Math.floor(value / 5))) ? true : false;
+  }
+  arr.forEach(num => multOf3Or5(num) === true ? sum += num : 0);
+  return sum;
 };
 
 /**
@@ -15,6 +22,10 @@ const sumMultiples = arr => {
  */
 const isValidDNA = str => {
   if (str === undefined) throw new Error("str is required");
+  const myDNA = ["C", "G", "T", "A"];
+  let count = 0;
+  str.split("").forEach(letter => !myDNA.includes(letter.toUpperCase()) ? count++ : 0);
+  return count > 0 ? false : true;
 };
 
 /**
@@ -24,6 +35,28 @@ const isValidDNA = str => {
  */
 const getComplementaryDNA = str => {
   if (str === undefined) throw new Error("str is required");
+
+  let myNewString = "";
+
+  function matchPairs(letter){
+    if (letter === "A"){
+      return "T";
+    }
+    else if (letter === "T"){
+      return "A";
+    }
+    else if (letter === "C"){
+      return "G";
+    }
+    else {
+      return "C";
+    }
+  }
+
+  isValidDNA(str) === false ? myNewString = undefined : str.split("").forEach(letter=> myNewString += matchPairs(letter.toUpperCase()));
+
+  return myNewString;
+
 };
 
 /**
