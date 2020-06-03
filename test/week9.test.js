@@ -55,11 +55,15 @@ describe("getComplementaryDNA", () => {
     });
 });
 
-describe.only("isItPrime", () => {
+describe("isItPrime", () => {
     test("This function should receive a number and return true/false depending " + 
     " on whether it is a prime number or not. A prime number is a number that can " + 
     " only be divided evenly by 1 and itself (for example, 7)", () => {
-        expect(isItPrime([])).toEqual();
+        expect(isItPrime(7)).toEqual(true);
+        expect(isItPrime(13)).toEqual(true);
+        expect(isItPrime(14)).toEqual(false);
+        expect(isItPrime(10945)).toEqual(false);
+        expect(isItPrime(4391)).toEqual(true);
     });
 });
 
@@ -74,21 +78,46 @@ describe("createMatrix", () => {
     "   [\"foo\", \"foo\", \"foo\"], " +
     "   [\"foo\", \"foo\", \"foo\"] " +
     " ]", () => {
-        expect(createMatrix([])).toEqual();
+        expect(createMatrix(3, "foo")).toEqual([["foo", "foo", "foo"], ["foo", "foo", "foo"], ["foo", "foo", "foo"]]);
+        expect(createMatrix(5, 0)).toEqual([[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]]);
     });
 });
 
 
 describe("areWeCovered", () => {
+
+    const staff = [
+        { name: "Sally", rota: ["Monday", "Tuesday", "Friday"] },
+        { name: "Pedro", rota: ["Saturday", "Sunday", "Tuesday", "Wednesday"] },
+        { name: "Jennifer", rota: ["Monday", "Wednesday", "Friday"] },
+        { name: "James", rota: ["Friday", "Sunday", "Tuesday", "Wednesday"] },
+    ];
+
+    const day1 = "Sunday";
+    const day2 = "Monday";
+    const day3 = "Tuesday";
+    const day4 = "Wednesday";
+    const day5 = "Thursday";
+    const day6 = "Friday";
+    const day7 = "Saturday";
+
+
     test(" * This function takes an array of staff objects in the format: \n" +
-    " [ \n" + 
-    "  { name: \"Sally\", rota: [\"Monday\", \"Tuesday\", \"Friday\"] }, \n" +
-    "  { name: \"Pedro\", rota: [\"Saturday\", \"Sunday\", \"Tuesday\", \"Wednesday\"] }, \n" +
-    "  ...etc \n" +
-    " ] \n" +
-    " and a day of the week. For the café to run successfully, at least 3 staff " +
+    "[ \n" + 
+    " { name: \"Sally\", rota: [\"Monday\", \"Tuesday\", \"Friday\"] }, \n" +
+    " { name: \"Pedro\", rota: [\"Saturday\", \"Sunday\", \"Tuesday\", \"Wednesday\"] }, \n" +
+    " ...etc \n" +
+    "] \n" +
+    "and a day of the week. For the café to run successfully, at least 3 staff " +
     "members are required per day. The function should return true/false depending " + 
-    " on whether there are enough staff scheduled for the given day.", () => {
-        expect(areWeCovered([])).toEqual();
+    "on whether there are enough staff scheduled for the given day.", () => {
+
+        expect(areWeCovered(staff, day1)).toEqual(false);
+        expect(areWeCovered(staff, day2)).toEqual(false);
+        expect(areWeCovered(staff, day3)).toEqual(true);
+        expect(areWeCovered(staff, day4)).toEqual(true);
+        expect(areWeCovered(staff, day5)).toEqual(false);
+        expect(areWeCovered(staff, day6)).toEqual(true);
+        expect(areWeCovered(staff, day7)).toEqual(false);
     });
 });

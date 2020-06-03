@@ -35,9 +35,7 @@ const isValidDNA = str => {
  */
 const getComplementaryDNA = str => {
   if (str === undefined) throw new Error("str is required");
-
   let myNewString = "";
-
   function matchPairs(letter){
     if (letter === "A"){
       return "T";
@@ -52,11 +50,8 @@ const getComplementaryDNA = str => {
       return "C";
     }
   }
-
   isValidDNA(str) === false ? myNewString = undefined : str.split("").forEach(letter=> myNewString += matchPairs(letter.toUpperCase()));
-
   return myNewString;
-
 };
 
 /**
@@ -66,6 +61,9 @@ const getComplementaryDNA = str => {
  */
 const isItPrime = n => {
   if (n === undefined) throw new Error("n is required");
+  for(let i = 2; i < n; i++)
+  if(n % i === 0) return false;
+  return n > 1;
 };
 
 /**
@@ -80,8 +78,16 @@ const isItPrime = n => {
  * @returns {Array}
  */
 const createMatrix = (n, fill) => {
-  if (n === undefined) throw new Error("n is required");
-  if (fill === undefined) throw new Error("fill is required");
+  let arr1 = [];
+  let arr2 = [];
+  for (let i = 0; i < n; i++){
+    arr2 = [];
+    for (let j = 0; j < n; j++){
+      arr2.push(fill);
+    }
+    arr1.push(arr2);
+  }
+  return arr1;
 };
 
 /**
@@ -99,6 +105,9 @@ const createMatrix = (n, fill) => {
 const areWeCovered = (staff, day) => {
   if (staff === undefined) throw new Error("staff is required");
   if (day === undefined) throw new Error("day is required");
+  let count = 0;
+  Object.values(staff).forEach(arr => arr.rota.indexOf(day) != -1 ? count++ : 0);
+  return count > 2 ? true : false;
 };
 
 module.exports = {
