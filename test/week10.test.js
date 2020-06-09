@@ -9,7 +9,7 @@ const {
 describe("sumDigits", () => {
     test("This function takes a number, e.g. 123 and returns the sum of all its digits, e.g 6 in this example.", () => {
         expect(sumDigits(123)).toEqual(6);
-        expect(sumDigits(456)).toEqual(16);
+        expect(sumDigits(456)).toEqual(15);
         expect(sumDigits(1024)).toEqual(7);
         expect(sumDigits(0)).toEqual(0);
         expect(sumDigits(123456789)).toEqual(45);
@@ -19,7 +19,7 @@ describe("sumDigits", () => {
     });
 });
 
-describe("createRange", () => {
+describe.only("createRange", () => {
     test("This function creates a range of numbers as an array. It received a start, an end and a step. ", () => {
         expect(createRange(1, 11, 2)).toEqual([1, 3, 5, 7, 9, 11]);
         expect(createRange(5, 40, 5)).toEqual([5, 10, 15, 20, 25, 30, 35, 40]);
