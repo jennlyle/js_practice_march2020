@@ -7,12 +7,24 @@ const {
     areWeCovered
   } = require("../challenges/week9");
   
-describe("sumMultiples", () => {
-    test("This function will receive an array of numbers and should return the sum \n" + 
-    "of any numbers which are a multiple of 3 or 5", () => {
+describe.only("sumMultiples", () => {
+    test("Throws an error if array is not passed", () => {
+        expect(() =>
+            sumMultiples()
+        ).toThrow("arr is required");
+
+        expect(() =>
+            sumMultiples("foo")
+        ).toThrow("arr needs to be an Array");
+    });
+
+    test("return a default of 0 if an empty array is passed", () => {
+        expect(sumMultiples([])).toEqual(0);
+    }); 
+
+    test("return the sum of any multiples of 3 or 5", () => {
         expect(sumMultiples([3, 5])).toEqual(8);
         expect(sumMultiples([0, 3, 5, 7])).toEqual(8);
-        expect(sumMultiples([])).toEqual(0);
         expect(sumMultiples([1, 7, 33, 55, 92, 107])).toEqual(88);
         expect(sumMultiples([1, 7, 13, 15, 92, 107])).toEqual(15);
         expect(sumMultiples([1, 7, 13, 92, 107])).toEqual(0);

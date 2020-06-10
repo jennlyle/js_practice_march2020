@@ -6,6 +6,7 @@
  */
 const sumMultiples = arr => {
   if (arr === undefined) throw new Error("arr is required");
+  if (!Array.isArray(arr)) throw new Error("arr needs to be an Array");
   let sum = 0;
   function multOf3Or5(value){
     return ((value / 3) === (Math.floor(value / 3))) || 
