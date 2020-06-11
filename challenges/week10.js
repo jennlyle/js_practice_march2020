@@ -4,23 +4,47 @@
  */
 const sumDigits = n => {
     if (n === undefined) throw new Error("n is required");
-  };
+    if (!Number.isInteger(n)) throw new Error("n must be an integer");
+    let arr = n.toString(10).split('').map(Number);
+    let sum = 0;
+    arr.forEach(num => sum += num);
+    return sum;
+};
   
-  /**
-   * This function creates a range of numbers as an array. It received a start, an end and a step. Step is the gap between numbers in the range. For example, if start = 3, end = 11 and step = 2 the resulting range would be: [3, 5, 7, 9, 11]
-   * Both the start and the end numbers are inclusive.
-   * Step is an optional parameter. If it is not provided, assume the step is 1.
-   * @param {Number} start
-   * @param {Number} end
-   * @param {Number} step
-   */
-  const createRange = (start, end, step) => {
+/**
+ * This function creates a range of numbers as an array. It received a start, an end and a step. 
+ * Step is the gap between numbers in the range. For example, if start = 3, end = 11 and step = 2 
+ * the resulting range would be: [3, 5, 7, 9, 11]
+ * Both the start and the end numbers are inclusive.
+ * Step is an optional parameter. If it is not provided, assume the step is 1.
+ * @param {Number} start
+ * @param {Number} end
+ * @param {Number} step
+ */
+const createRange = (start, end, step) => {
     if (start === undefined) throw new Error("start is required");
     if (end === undefined) throw new Error("end is required");
-  };
+    if (typeof(start) != "number") throw new Error("start must be a number");
+    if (typeof(end) != "number") throw new Error("end must be a number");
+    step === undefined ? step = 1 : 0;
+  
+    let length = (end - start) / step + 1;
+
+    if (!Number.isInteger(length)) throw new Error("end is not a valid value for this range");
+  
+    let myArray = [];
+    for (let $i = 0; $i < length; $i++){
+      myArray.push(start + ($i * step));
+  
+    }
+  
+    return myArray;
+  
+};
   
   /**
-   * This function takes an array of user objects and their usage in minutes of various applications. The format of the data should be as follows:
+   * This function takes an array of user objects and their usage in minutes of various applications. 
+   * The format of the data should be as follows:
    * [
    *  {
    *    username: "beth_1234",
@@ -43,20 +67,51 @@ const sumDigits = n => {
    *   },
    * ]
    *
-   * The function should return an array of usernames of users who have used more than 100 minutes of screentime for a given date.
+   * The function should return an array of usernames of users who have used more than 100 minutes of 
+   * screentime for a given date.
    * The date will be provided in the format "2019-05-04" (YYYY-MM-DD)
-   * For example, if passed the above users and the date "2019-05-04" the function should return ["beth_1234"] as she used over 100 minutes of screentime on that date.
+   * For example, if passed the above users and the date "2019-05-04" the function should 
+   * return ["beth_1234"] as she used over 100 minutes of screentime on that date.
    * @param {Array} users
    */
   const getScreentimeAlertList = (users, date) => {
     if (users === undefined) throw new Error("users is required");
     if (date === undefined) throw new Error("date is required");
+
+// users must be an object
+    if (typeof users != "object") throw new Error("users data should be an object");
+
+// date must follow yyyy-mm-dd
+
+
+
+    if (Object.prototype.toString.call(d) === "[object Date]") {
+        // it is a date
+        if (isNaN(d.getTime())) {  // d.valueOf() could also work
+          // date is not valid
+        } else {
+          // date is valid
+        }
+      } else {
+        // not a date
+      }
+
+// what happens if username/name or screentime values aren't present?
+
+
+
+
+
+
   };
   
   /**
-   * This function will receive a hexadecimal color code in the format #FF1133. A hexadecimal code is a number written in hexadecimal notation, i.e. base 16. If you want to know more about hexadecimal notation:
+   * This function will receive a hexadecimal color code in the format #FF1133. A hexadecimal 
+   * code is a number written in hexadecimal notation, i.e. base 16. If you want to know more 
+   * about hexadecimal notation:
    * https://www.youtube.com/watch?v=u_atXp-NF6w
-   * For colour codes, the first 2 chars (FF in this case) represent the amount of red, the next 2 chars (11) represent the amound of green, and the last 2 chars (33) represent the amount of blue.
+   * For colour codes, the first 2 chars (FF in this case) represent the amount of red, the next 2 
+   * chars (11) represent the amound of green, and the last 2 chars (33) represent the amount of blue.
    * Colours can also be represented in RGB format, using decimal notation.
    * This function should transform the hex code into an RGB code in the format:
    * "rgb(255,17,51)"
