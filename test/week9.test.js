@@ -7,19 +7,18 @@ const {
     areWeCovered
   } = require("../challenges/week9");
   
-describe.only("sumMultiples", () => {
+describe("sumMultiples", () => {
     test("Throws an error if array is not passed", () => {
-        expect(() =>
-            sumMultiples()
-        ).toThrow("arr is required");
-
-        expect(() =>
-            sumMultiples("foo")
-        ).toThrow("arr needs to be an Array");
+        expect(() => sumMultiples()).toThrow("arr is required");
+        expect(() => sumMultiples("foo")).toThrow("arr needs to be an Array");
     });
 
     test("return a default of 0 if an empty array is passed", () => {
         expect(sumMultiples([])).toEqual(0);
+    }); 
+
+    test("treats decimals the same.", () => {
+        expect(sumMultiples([0, 3.0, 5, 7, 1.2])).toEqual(8);
     }); 
 
     test("return the sum of any multiples of 3 or 5", () => {
@@ -33,15 +32,17 @@ describe.only("sumMultiples", () => {
 });
 
 describe("isValidDNA", () => {
-    test("This function will receive a string of characters and should return \n" + 
-    "true/false depending on whether it is a valid DNA string. A valid DNA \n" + 
-    "string may contain characters C, G, T or A only.", () => {
+    test("Throws an error if string is not passed", () => {
+        expect(() => isValidDNA(undefined)).toThrow("str is required");
+        expect(() => isValidDNA(2)).toThrow("str needs to be a String");
+    });
+
+    test("receives a string and returns true or false if could be a DNA string", () => {
         expect(isValidDNA("CGTA")).toEqual(true);
     });
 
     test("If not valid DNA, return false", () => {
         expect(isValidDNA("abcd")).toEqual(false);
-        expect(isValidDNA("1234")).toEqual(false);
     });
 
     test("lowercase is okay...", () => {
@@ -50,16 +51,17 @@ describe("isValidDNA", () => {
 });
 
 describe("getComplementaryDNA", () => {
-    test("This function will receive a valid DNA string (see above) and should \n" + 
-    "return a string of the complementary base pairs. In DNA, T always pairs with \n" + 
-    "A, and C always pairs with G. So a string of \"ACTG\" would have a complementary \n" + 
-    "DNA string of \"TGAC\".", () => {
+    test("Throws an error if string is not passed", () => {
+        expect(() => getComplementaryDNA(undefined)).toThrow("str is required");
+        expect(() => getComplementaryDNA(2)).toThrow("str needs to be a String");
+    });
+
+    test("returns DNA base pairs", () => {
         expect(getComplementaryDNA("ACTG")).toEqual("TGAC");
     });
 
     test("If not valid DNA, return undefined", () => {
         expect(getComplementaryDNA("abcd")).toEqual(undefined);
-        expect(getComplementaryDNA("1234")).toEqual(undefined);
     });    
 
     test("lowercase is okay...", () => {
@@ -68,35 +70,47 @@ describe("getComplementaryDNA", () => {
 });
 
 describe("isItPrime", () => {
-    test("This function should receive a number and return true/false depending " + 
-    " on whether it is a prime number or not. A prime number is a number that can " + 
-    " only be divided evenly by 1 and itself (for example, 7)", () => {
+    test("Throws an error if number is not passed", () => {
+        expect(() => isItPrime(undefined)).toThrow("n is required");
+        expect(() => isItPrime("2.01")).toThrow("n needs to be an integer");
+    });
+
+    test("returns true/false when determining if a number is prime.", () => {
         expect(isItPrime(7)).toEqual(true);
         expect(isItPrime(13)).toEqual(true);
         expect(isItPrime(14)).toEqual(false);
         expect(isItPrime(10945)).toEqual(false);
         expect(isItPrime(4391)).toEqual(true);
     });
-});
 
-
-describe("createMatrix", () => {
-    test(" * This function should receive a number and return an array of n arrays, " + 
-    " each filled with n items. The parameter \"fill\" should be used as the filler " + 
-    " of the arrays. For example, given parameters 3 and \"foo\" the resulting matrix " +
-    " should be: \n" +
-    " [ " +
-    "   [\"foo\", \"foo\", \"foo\"], " +
-    "   [\"foo\", \"foo\", \"foo\"], " +
-    "   [\"foo\", \"foo\", \"foo\"] " +
-    " ]", () => {
-        expect(createMatrix(3, "foo")).toEqual([["foo", "foo", "foo"], ["foo", "foo", "foo"], ["foo", "foo", "foo"]]);
-        expect(createMatrix(5, 0)).toEqual([[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]]);
+    test("floating number that represents integer should be okay", () => {
+        expect(isItPrime(13.0)).toEqual(true);
     });
 });
 
 
-describe("areWeCovered", () => {
+describe("createMatrix", () => {
+    test("Throws an error if number is not passed", () => {
+        expect(() => createMatrix(undefined, "foo")).toThrow("n is required");
+        expect(() => createMatrix(3, undefined)).toThrow("fill is required");
+        expect(() => createMatrix(3.2, "foo")).toThrow("n needs to be an integer");
+    });
+
+    test("Creates a matrix based on inputs offered", () => {
+        expect(createMatrix(3, "foo")).toEqual([["foo", "foo", "foo"], ["foo", "foo", "foo"], ["foo", "foo", "foo"]]);
+    });
+
+    test("works with numbers?", () => {
+        expect(createMatrix(5, 0)).toEqual([[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]]);
+    });
+
+    test("works with boolean?", () => {
+        expect(createMatrix(2, true)).toEqual([[true, true], [true, true]]);
+    });
+});
+
+
+describe.only("areWeCovered", () => {
 
     const staff = [
         { name: "Sally", rota: ["Monday", "Tuesday", "Friday"] },
@@ -113,16 +127,26 @@ describe("areWeCovered", () => {
     const day6 = "Friday";
     const day7 = "Saturday";
 
+    const staff1 = "Not an object";
 
-    test(" * This function takes an array of staff objects in the format: \n" +
-    "[ \n" + 
-    " { name: \"Sally\", rota: [\"Monday\", \"Tuesday\", \"Friday\"] }, \n" +
-    " { name: \"Pedro\", rota: [\"Saturday\", \"Sunday\", \"Tuesday\", \"Wednesday\"] }, \n" +
-    " ...etc \n" +
-    "] \n" +
-    "and a day of the week. For the café to run successfully, at least 3 staff " +
-    "members are required per day. The function should return true/false depending " + 
-    "on whether there are enough staff scheduled for the given day.", () => {
+    test("Throws an error for any undefined data passed in", () => {
+        expect(() => areWeCovered(staff, undefined)).toThrow("day is required");
+        expect(() => areWeCovered(undefined, "Friday")).toThrow("staff is required");
+    });
+
+    test("Throws an error if staff is not an object", () => {
+        expect(() => areWeCovered(staff1, "Monday")).toThrow("staff needs to be an Object");
+    });
+
+    test("Javascript sometimes treats null as an object, so cannot be null", () => {
+        expect(() => areWeCovered(null, "Monday")).toThrow("staff cannot be null");
+    });
+
+    test("if an 'invalid' day is entered", () => {
+        expect(() => areWeCovered(staff, "foo")).toThrow("day entered is invalid, try Monday");
+    });
+
+    test("Determines if staff coverage for a given day is adequate", () => {
 
         expect(areWeCovered(staff, day1)).toEqual(false);
         expect(areWeCovered(staff, day2)).toEqual(false);

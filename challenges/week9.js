@@ -23,6 +23,7 @@ const sumMultiples = arr => {
  */
 const isValidDNA = str => {
   if (str === undefined) throw new Error("str is required");
+  if (typeof str != "string") throw new Error("str needs to be a String");
   const myDNA = ["C", "G", "T", "A"];
   let count = 0;
   str.split("").forEach(letter => !myDNA.includes(letter.toUpperCase()) ? count++ : 0);
@@ -36,6 +37,7 @@ const isValidDNA = str => {
  */
 const getComplementaryDNA = str => {
   if (str === undefined) throw new Error("str is required");
+  if (typeof str != "string") throw new Error("str needs to be a String");
   let myNewString = "";
   function matchPairs(letter){
     if (letter === "A"){
@@ -62,6 +64,7 @@ const getComplementaryDNA = str => {
  */
 const isItPrime = n => {
   if (n === undefined) throw new Error("n is required");
+  if (Number.isInteger(n) === false) throw new Error("n needs to be an integer");
   for(let i = 2; i < n; i++) {
     if(n % i === 0) {
       return false;
@@ -84,6 +87,7 @@ const isItPrime = n => {
 const createMatrix = (n, fill) => {
   if (n === undefined) throw new Error("n is required");
   if (fill === undefined) throw new Error("fill is required");
+  if (Number.isInteger(n) === false) throw new Error("n needs to be an integer");
   let arr1 = [];
   let arr2 = [];
   for (let i = 0; i < n; i++){
@@ -111,6 +115,10 @@ const createMatrix = (n, fill) => {
 const areWeCovered = (staff, day) => {
   if (staff === undefined) throw new Error("staff is required");
   if (day === undefined) throw new Error("day is required");
+  if (typeof(staff) != "object") throw new Error("staff needs to be an Object");
+  if (staff === null) throw new Error("staff cannot be null");
+  const arrayOfDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  if (!arrayOfDays.includes(day)) throw new Error("day entered is invalid, try Monday");
   let count = 0;
   Object.values(staff).forEach(arr => arr.rota.indexOf(day) != -1 ? count++ : 0);
   return count > 2 ? true : false;
