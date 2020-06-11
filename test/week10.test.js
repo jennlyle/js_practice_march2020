@@ -21,7 +21,7 @@ describe("sumDigits", () => {
     });
 });
 
-describe.only("createRange", () => {
+describe("createRange", () => {
     test("Throws an error if start or end is undefined", () => {
         expect(() => createRange(undefined, "end")).toThrow("start is required");
         expect(() => createRange("start", undefined)).toThrow("end is required");
@@ -43,7 +43,7 @@ describe.only("createRange", () => {
     });
 });
 
-describe("getScreentimeAlertList", () => {
+describe.only("getScreentimeAlertList", () => {
 
     const testdata = [
         {
@@ -67,7 +67,71 @@ describe("getScreentimeAlertList", () => {
         }
     ];
 
+    const testdata1 = [
+        {
+            username: false,
+            name: "Beth Smith",
+            screenTime: [
+                { date: "2019-05-01", usage: { twitter: 34, instagram: 22, facebook: 40} },
+                { date: "2019-05-02", usage: { twitter: 56, instagram: 40, facebook: 31} },
+                { date: "2019-05-03", usage: { twitter: 12, instagram: 15, facebook: 19} },
+                { date: "2019-05-04", usage: { twitter: 10, instagram: 56, facebook: 61} }
+            ]
+        },
+        {
+            username: "sam_j_1989",
+            name: "Sam Jones",
+            screenTime: [
+                { date: "2019-06-11", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 10} },
+                { date: "2019-06-13", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 16} },
+                { date: "2019-06-14", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 31} }
+            ]
+        }
+    ];
 
+    const testdata2 = [
+        {
+            username: "beth_1234",
+            name: "Beth Smith",
+            screenTime: [
+                { date: "2019-05-01", usage: { twitter: 34, instagram: 22, facebook: 40} },
+                { date: "2019-05-02", usage: { twitter: 56, instagram: 40, facebook: 31} },
+                { date: "2019-05-03", usage: { twitter: 12, instagram: 15, facebook: 19} },
+                { date: "2019-05-04", usage: { twitter: 10, instagram: 56, facebook: 61} }
+            ]
+        },
+        {
+            username: "sam_j_1989",
+            name: undefined,
+            screenTime: [
+                { date: "2019-06-11", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 10} },
+                { date: "2019-06-13", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 16} },
+                { date: "2019-06-14", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 31} }
+            ]
+        }
+    ];
+    
+    const testdata3 = [
+        {
+            username: "beth_1234",
+            name: "Beth Smith",
+            screenTime: [
+                { date: "2019-05-01", usage: { twitter: 34, instagram: 22, facebook: 40} },
+                { date: "2019-05-02", usage: { twitter: 56, instagram: 40, facebook: 31} },
+                { date: "2019-05-03", usage: { twitter: 12, instagram: 15, facebook: 19} },
+                { date: "2019-05-04", usage: { twitter: 10, instagram: 56, facebook: 61} }
+            ]
+        },
+        {
+            username: "sam_j_1989",
+            name: "Sam Jones",
+            screenTime: [
+                { date: "2019-06-11", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 10} },
+                { date: "2019-06-13", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 16} },
+                { date: "2023-06-14", usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 31} }
+            ]
+        }
+    ];
 
     test("Throws an error if users or date is not passed", () => {
         expect(() => getScreentimeAlertList(undefined, "date")).toThrow("users is required");
@@ -75,11 +139,32 @@ describe("getScreentimeAlertList", () => {
     });
 
     test("Throws an error if users is not an object", () => {
-        expect(() => getScreentimeAlertList("foo", "2020-06-01")).toThrow("users data should be an object");
+        expect(() => getScreentimeAlertList("foo", "2020-06-01")).toThrow("users should be an object");
     });
 
+    test("Throws an error if the date is not valid, such as leap years, fake dates or date set to the future", () => {
+        expect(() => getScreentimeAlertList(testdata, "2019-02-29")).toThrow("date is not valid");
+        expect(() => getScreentimeAlertList(testdata, "2021-05-04")).toThrow("date is not valid");
+        expect(() => getScreentimeAlertList(testdata, "2019-13-04")).toThrow("date is not valid");
+        expect(() => getScreentimeAlertList(testdata, "2019-05-32")).toThrow("date is not valid");
+    });
 
+    test("Throws an error if username and name within object passed is not a string", () => {
+        expect(() => getScreentimeAlertList(testdata1, "2019-05-04")).toThrow("username should be a string");
+        expect(() => getScreentimeAlertList(testdata2, "2019-05-04")).toThrow("name should be a string");
+    });
 
+    test("Throws an error if a date inside of screenTime is not valid", () => {
+        expect(() => getScreentimeAlertList(testdata3, "2019-05-04")).toThrow("screenTime date is not valid");
+    });
+
+    test("Should output the name of the user who has exceeded 100 minutes", () => {
+        expect(getScreentimeAlertList(testdata, "2019-05-04")).toEqual(["beth_1234"]);
+    });
+
+    test("returns empty array if no users have exceeded 100 minutes", () => {
+        expect(getScreentimeAlertList(testdata, "2019-06-11")).toEqual([]);
+    });
 });
 
 describe("hexToRGB", () => {

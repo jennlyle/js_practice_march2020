@@ -27,19 +27,14 @@ const createRange = (start, end, step) => {
     if (typeof(start) != "number") throw new Error("start must be a number");
     if (typeof(end) != "number") throw new Error("end must be a number");
     step === undefined ? step = 1 : 0;
-  
-    let length = (end - start) / step + 1;
-
-    if (!Number.isInteger(length)) throw new Error("end is not a valid value for this range");
+    if (!Number.isInteger((end - start) / step + 1)) throw new Error("end is not a valid value for this range");
   
     let myArray = [];
-    for (let $i = 0; $i < length; $i++){
+    for (let $i = 0; $i < (end - start) / step + 1; $i++){
       myArray.push(start + ($i * step));
   
     }
-  
     return myArray;
-  
 };
   
   /**
@@ -77,32 +72,42 @@ const createRange = (start, end, step) => {
   const getScreentimeAlertList = (users, date) => {
     if (users === undefined) throw new Error("users is required");
     if (date === undefined) throw new Error("date is required");
+    if (typeof users != "object") throw new Error("users should be an object");
 
-// users must be an object
-    if (typeof users != "object") throw new Error("users data should be an object");
-
-// date must follow yyyy-mm-dd
-
-
-
-    if (Object.prototype.toString.call(d) === "[object Date]") {
-        // it is a date
-        if (isNaN(d.getTime())) {  // d.valueOf() could also work
-          // date is not valid
-        } else {
-          // date is valid
+    function isValidDate(num) {
+        if (!/^\d{4}\-\d{1,2}\-\d{1,2}$/.test(num)){
+            return false;
         }
-      } else {
-        // not a date
-      }
-
-// what happens if username/name or screentime values aren't present?
-
-
-
-
-
-
+        let parts = num.split("-");
+        let year = parseInt(parts[0], 10);
+        let month = parseInt(parts[1], 10);
+        let day = parseInt(parts[2], 10);
+        if (year < 2000 || year > (new Date().getFullYear()) || month == 0 || month > 12) {
+            return false;
+        }
+        let monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
+        if(year % 400 == 0 || (year % 100 != 0 && year % 4 == 0))
+            monthLength[1] = 29;
+        return day > 0 && day <= monthLength[month - 1];
+    }
+  
+    if (isValidDate(date) === false) throw new Error("date is not valid");
+ 
+    let myArray = [];
+    users.forEach(function(user){
+        if (typeof(user["username"]) != "string") throw new Error("username should be a string");
+        if (typeof(user["name"]) != "string") throw new Error("name should be a string");
+        user["screenTime"].forEach(function(screenTimeDateAndUsage){
+            if (isValidDate(screenTimeDateAndUsage["date"]) === false) throw new Error("screenTime date is not valid");
+             if (screenTimeDateAndUsage["date"] === date){
+                const reducer = (accumulator, currentValue) => accumulator + currentValue;
+                if (Object.values(screenTimeDateAndUsage["usage"]).reduce(reducer) > 99) {
+                    myArray.push(user["username"]);
+                }
+            }
+        });
+    });
+    return myArray;
   };
   
   /**
