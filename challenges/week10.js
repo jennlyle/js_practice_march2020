@@ -75,7 +75,7 @@ const createRange = (start, end, step) => {
     if (typeof users != "object") throw new Error("users should be an object");
 
     function isValidDate(num) {
-        if (!/^\d{4}\-\d{1,2}\-\d{1,2}$/.test(num)){
+        if (!/^\d{4}-\d{1,2}-\d{1,2}$/.test(num)){
             return false;
         }
         let parts = num.split("-");
@@ -125,23 +125,74 @@ const createRange = (start, end, step) => {
    */
   const hexToRGB = hexStr => {
     if (hexStr === undefined) throw new Error("hexStr is required");
+
+    hexStr.charAt(0) != "#" ? hexStr = "#" + hexStr : 0;
+
+    let myString = "rgb(";
+    myString += hexToDec(hexStr.substring(1, 3)) +",";
+    myString += hexToDec(hexStr.substring(3, 5)) +",";
+    myString += hexToDec(hexStr.substring(5, 7)) +")";
+    return myString;
+
+    function hexToDec(value){
+      return (numbericCheck(value.substring(1, 2)) * Math.pow(16, 0)) + (numbericCheck(value.substring(0, 1)) * Math.pow(16, 1));
+    }
+
+    function numbericCheck(value){
+      return isNaN(value) ? letterToNumber(value.toUpperCase()) : value;
+    }
+
+    function letterToNumber(value){
+      if (value === "A"){
+        return 10;
+      }
+      else if (value === "B"){
+        return 11;
+      }
+      else if (value === "C"){
+        return 12;
+      }
+      else if (value === "D"){
+        return 13;
+      }
+      else if (value === "E"){
+        return 14;
+      }
+      else if (value === "F"){
+        return 15;
+      }
+    }  
+
   };
   
   /**
-   * This function takes a noughts and crosses board represented as an array, where an empty space is represented with null.
+   * This function takes a noughts and crosses board represented as an array, where an empty space is 
+   * represented with null.
    * [
    *  ["X", "0", null],
    *  ["X", null, "0"],
    *  ["X", null, "0"]
    * ]
-   * The function should return "X" if player X has won, "0" if the player 0 has won, and null if there is currently no winner.
+   * The function should return "X" if player X has won, "0" if the player 0 has won, and null if there 
+   * is currently no winner.
    * @param {Array} board
    */
   const findWinner = board => {
     if (board === undefined) throw new Error("board is required");
+    if (!Array.isArray(board)) throw new Error("board must be an array");
+    let myWinner = null;
+    board[0][0] === board[0][1] && board[0][1] === board[0][2] ? myWinner = board[0][0] : 0;
+    board[1][0] === board[1][1] && board[1][1] === board[1][2] ? myWinner = board[1][0] : 0;
+    board[2][0] === board[2][1] && board[2][1] === board[2][2] ? myWinner = board[2][0] : 0;
+    board[0][0] === board[1][0] && board[1][0] === board[2][0] ? myWinner = board[0][0] : 0;
+    board[0][1] === board[1][1] && board[1][1] === board[2][1] ? myWinner = board[0][1] : 0;
+    board[0][2] === board[1][2] && board[1][2] === board[2][2] ? myWinner = board[0][2] : 0;
+    board[0][0] === board[1][1] && board[1][1] === board[2][2] ? myWinner = board[0][0] : 0;
+    board[2][0] === board[1][1] && board[1][1] === board[2][0] ? myWinner = board[2][0] : 0;
+    return myWinner;
   };
   
-  module.exports = {
+    module.exports = {
     sumDigits,
     createRange,
     getScreentimeAlertList,

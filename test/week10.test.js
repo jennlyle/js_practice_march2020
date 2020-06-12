@@ -43,7 +43,7 @@ describe("createRange", () => {
     });
 });
 
-describe.only("getScreentimeAlertList", () => {
+describe("getScreentimeAlertList", () => {
 
     const testdata = [
         {
@@ -171,10 +171,65 @@ describe("hexToRGB", () => {
     test("Throws an error if hex string is not passed", () => {
         expect(() => hexToRGB()).toThrow("hexStr is required");
     });
+
+    test("returns rgb when given hex", () => {
+        expect(hexToRGB("#FF1133")).toEqual("rgb(255,17,51)");
+        expect(hexToRGB("#FFFFFF")).toEqual("rgb(255,255,255)");
+        expect(hexToRGB("#000000")).toEqual("rgb(0,0,0)");
+    });
+
+    test("ignores lowercase entry", () => {
+        expect(hexToRGB("#ff1133")).toEqual("rgb(255,17,51)");
+    });
+
+    test("what if # is missing from entry?", () => {
+        expect(hexToRGB("FF1133")).toEqual("rgb(255,17,51)");
+    });    
 });
 
 describe("findWinner", () => {
+
+    const board1 = [
+        ["X", "0", null],
+        ["X", null, "0"],
+        ["X", null, "0"]
+        ];
+        
+    const board2 = [
+        ["0", "X", null],
+        ["X", null, "0"],
+        ["X", null, "0"]
+        ];
+
+    const board3 = [
+        ["0", "X", null],
+        ["X", "0", null],
+        ["X", null, "0"]
+        ];
+
+    const board4 = [
+        ["0", "0", null],
+        ["X", "X", "X"],
+        [null, "0", null]
+        ];
+
     test("Throws an error if board is not passed", () => {
         expect(() => findWinner()).toThrow("board is required");
     });
+
+    test("Throws an error if board is not an array", () => {
+        expect(() => findWinner("foo")).toThrow("board must be an array");
+    });
+
+    test("Find the winner", () => {
+        expect(findWinner(board4)).toEqual("X");
+        expect(findWinner(board1)).toEqual("X");
+        expect(findWinner(board3)).toEqual("0");
+    });
+
+    test("returns null in the case of a tie", () => {
+        expect(findWinner(board2)).toEqual(null);
+    });
+
+
 });

@@ -110,7 +110,7 @@ describe("createMatrix", () => {
 });
 
 
-describe.only("areWeCovered", () => {
+describe("areWeCovered", () => {
 
     const staff = [
         { name: "Sally", rota: ["Monday", "Tuesday", "Friday"] },
